@@ -1,0 +1,81 @@
+﻿@model FilmsCatalog.Models.Restaurant
+
+@{
+    ViewData["Title"] = "Details";
+    int i = 0;
+}
+
+<div class="container container2">
+    <div class="myheromenu d-flex align-items-center justify-content-center">
+        <h2 class="text-white">@Model.Company.Name</h2>
+    </div>
+    <div class="row mb-3">
+        <p class="col-auto mr-auto">Adress: @Model.Adress</p>
+        <p class="col-auto mr-auto">@Model.Phone</p>
+
+        <div class="col-auto snicons">
+            <a href="#"><i class="fab fa-vk fa-2x"></i></a>
+            <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+        </div>
+    </div>
+    <h3>Сумма заказа: </h3>
+    <a class="btn btn-primary">Оплатить</a>
+    <a asp-action="Create" asp-controller="Sections" asp-route-restId="@(Model.Id)" asp-route-menuId="@(Model.MenuId)">Добавить раздел</a>
+    @foreach (var section in Model.Menu.Sections)
+    {
+     
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="heading@(++i)">
+                    <h5 class="mb-0">
+                        <button class="btn-link btn text-decoration-none text-info" type="button" data-toggle="collapse" data-target="#collapse@(i)" aria-expanded="true" aria-controls="collapseOne">
+                            @(section.Name)
+                        </button>
+                        <a class="btn" type="button" asp-controller="Sections" asp-action="Delete" asp-route-id="@(section.Id)" asp-route-restId="@(Model.Id)">
+                            &times;
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse@(i)" class="collapse show" aria-labelledby="heading@(i)" data-parent="#accordionExample">
+                    <a asp-action="Create" asp-controller="Categories" asp-route-restId="@(Model.Id)" asp-route-sectId="@(section.Id)">Добавить категорию</a>
+                    @foreach (var category in section.Categories)
+                    {
+                        
+                <div class="card-body">
+                    <h2>@category.Name<a class="btn" type="button" asp-controller="Categories" asp-action="Delete" asp-route-id="@(category.Id)" asp-route-restId="@(Model.Id)">
+    &times;
+</a></h2>
+                    
+                    <a asp-action="Create" asp-controller="Dishes" asp-route-restId="@(Model.Id)" asp-route-catId="@category.Id">Добавить блюдо</a>
+                    @foreach (var food in category.Dishes)
+                    {
+                <form asp-action="Create" asp-controller="Orders">
+
+
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img src="~/img/09076dd05b16178058e622cbc662ef03.jpg" class="card-img" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">@food.Name</h5>
+                                    <p class="card-text">@food.Description</p>
+                                    <button class="btn btn-info" type="submit">@food.Price р</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                        <a class="btn btn-link" type="button" asp-controller="Dishes" asp-action="Delete" asp-route-id="@(food.Id)" asp-route-restId="@(Model.Id)">
+                            удалить блюдо
+                        </a>
+                    }
+                </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
