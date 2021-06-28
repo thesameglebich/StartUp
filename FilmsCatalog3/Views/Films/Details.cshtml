@@ -1,0 +1,39 @@
+﻿@using FilmsCatalog.Services
+@model FilmsCatalog.Models.Film
+@inject IUserPermissionService UserPermissionService
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Model.Name</h1>
+
+<div class="container2 d-flex justify-content-center">
+    <img  src="@Model.Path" alt="Image"/>
+</div>
+<div class="container container2 mt-1">
+    <h2 class="text-center">Информация</h2>
+    <h2 class="mt-2">Описание</h2>
+    <p>@Model.Description</p>
+    <hr />
+    <nav>
+        <ul>
+            Год выпуска: @Model.Year
+        </ul>
+        <ul>
+            Режиссёр: @Model.Director
+        </ul>
+        <ul>
+            Добавил фильм: @Model.Creator.FirstName @Model.Creator.MiddleName @Model.Creator.LastName
+        </ul>
+    </nav>
+    
+</div>
+<div class="mt-2">
+    @if (UserPermissionService.CanEditFilm(Model))
+    {
+        <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Id">Редактировать</a>
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Удалить</a>
+    }
+    <a class="btn btn-dark" asp-action="Index">Назад</a>
+</div>

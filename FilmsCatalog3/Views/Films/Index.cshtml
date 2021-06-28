@@ -1,0 +1,66 @@
+﻿@model Pagination<FilmsCatalog.Models.Film>
+@using FilmsCatalog.Services
+@inject IUserPermissionService UserPermissionService
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="myhero3 d-flex align-items-center justify-content-center">
+    <h2 class="text-white">Каталог фильмов</h2>
+</div>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        <a class="btn-primary btn mt-2" asp-action="Create">Add film <span class="badge bg-secondary">+</span></a>
+    </p>
+}
+else
+{
+    <div class="alert alert-primary mt-2" role="alert">
+        Приветсвую! <a asp-action="SignIn" asp-controller="Account" class="alert-link">Авторизируйтесь, если хотите добавить ваш фильм!</a>.
+    </div>
+}
+
+
+<div class="container container2">
+    <h3 class="text-center">Галлерея фильмов</h3>
+    @foreach (var film in Model)
+    {
+        <div class="card mb-2">
+            <div class="card-header">
+                @film.Creator.FirstName @film.Creator.MiddleName @film.Creator.LastName добавил этот фильм
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@film.Name</h5>
+                <p class="card-text">@film.Description</p>
+                <a class="btn btn-success" asp-action="Details" asp-route-id="@film.Id">Подробнее</a>
+                @if (UserPermissionService.CanEditFilm(film))
+                {
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@film.Id">Редактировать</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@film.Id">Удалить</a>
+                }
+
+            </div>
+        </div>
+    }
+    @{
+        var prevPage = !Model.PreviousPage ? "disabled" : "";
+        var nextPage = !Model.NextPage ? "disabled" : "";
+    }
+
+<div class="row mt-3">
+    <div class="col-auto mr-auto">
+        <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)"
+           class="btn btn-outline-primary @prevPage">
+            Предыдущая
+        </a>
+        <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)"
+           class="btn btn-outline-primary @nextPage">
+            Следующая
+        </a>
+    </div>
+    <span class="col-auto">Page @Model.PageIndex</span>
+</div>
+  
+
+</div>
