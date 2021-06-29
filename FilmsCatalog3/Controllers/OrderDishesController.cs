@@ -59,18 +59,34 @@ namespace FilmsCatalog.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,OrderId,Count,DishId")] OrderDish orderDish)
+        //[Bind("Id,OrderId,Count,DishId")] OrderDish orderDish
+        public async Task<IActionResult> Create(Guid? dishId, Guid restId)
         {
-            if (ModelState.IsValid)
+            if (true)
             {
-                orderDish.Id = Guid.NewGuid();
+                var mydish = await this._context.Dishes.SingleOrDefaultAsync(x => x.Id == dishId);
+                var order = new Order
+                {
+                    Id = Guid.NewGuid(),
+                    Date = DateTime.Now,
+                    Price = mydish.Price,
+                    RestaurantId = restId,
+                };
+                var orderDish = new OrderDish
+                {
+                    Id = Guid.NewGuid(),
+                    DishId = dishId,
+                    OrderId = order.Id
+                };
+                _context.Orders.Add(order);
                 _context.Add(orderDish);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Restaurants", new { id = restId });
             }
+            /*
             ViewData["DishId"] = new SelectList(_context.Dishes, "Id", "Id", orderDish.DishId);
             ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "Id", orderDish.OrderId);
-            return View(orderDish);
+            return View(orderDish);*/
         }
 
         // GET: OrderDishes/Edit/5

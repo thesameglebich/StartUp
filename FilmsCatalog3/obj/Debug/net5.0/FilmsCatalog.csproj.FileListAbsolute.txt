@@ -1380,3 +1380,8 @@ C:\Users\Пользователь\source\repos\FilmCatalog\FilmsCatalog3\obj\Deb
 C:\Users\Пользователь\source\repos\FilmCatalog\FilmsCatalog3\obj\Debug\net5.0\Razor\Views\Orders\Details.cshtml.g.cs
 C:\Users\Пользователь\source\repos\FilmCatalog\FilmsCatalog3\obj\Debug\net5.0\Razor\Views\Orders\Edit.cshtml.g.cs
 C:\Users\Пользователь\source\repos\FilmCatalog\FilmsCatalog3\obj\Debug\net5.0\Razor\Views\Orders\Index.cshtml.g.cs
+C:\Users\Пользователь\source\repos\FilmCatalog\FilmsCatalog3\obj\Debug\net5.0\Razor\Views\OrderDishes\Create.cshtml.g.cs
+C:\Users\Пользователь\source\repos\FilmCatalog\FilmsCatalog3\obj\Debug\net5.0\Razor\Views\OrderDishes\Delete.cshtml.g.cs
+C:\Users\Пользователь\source\repos\FilmCatalog\FilmsCatalog3\obj\Debug\net5.0\Razor\Views\OrderDishes\Details.cshtml.g.cs
+C:\Users\Пользователь\source\repos\FilmCatalog\FilmsCatalog3\obj\Debug\net5.0\Razor\Views\OrderDishes\Edit.cshtml.g.cs
+C:\Users\Пользователь\source\repos\FilmCatalog\FilmsCatalog3\obj\Debug\net5.0\Razor\Views\OrderDishes\Index.cshtml.g.cs

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FilmsCatalog.Data;
 using FilmsCatalog.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FilmsCatalog.Controllers
 {
+    [Authorize]
     public class PlacesController : Controller
     {
         private readonly ApplicationDbContext _context;
